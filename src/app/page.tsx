@@ -776,7 +776,7 @@ function RevistaConstrumedia() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="REVISTA CONSTRUMEDIA"
-          subtitle="Maquetación y diseño de 8 ediciones de la revista del sector construcción."
+          subtitle="Maquetación y diseño de revistas."
         />
         <div className="relative mt-4">
           <div
