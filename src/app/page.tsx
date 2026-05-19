@@ -315,8 +315,8 @@ function Navbar() {
           <Image
             src="/logo.png"
             alt="FJ Diseño & Media"
-            width={44}
-            height={44}
+            width={52}
+            height={52}
             className="rounded"
           />
           <span
@@ -426,8 +426,8 @@ function Hero() {
           <Image
             src="/logo.png"
             alt="FJ Diseño & Media"
-            width={120}
-            height={120}
+            width={150}
+            height={150}
             className="mx-auto mb-6 rounded-xl shadow-2xl"
           />
         </motion.div>
@@ -506,7 +506,7 @@ function Hero() {
 /* ─── Sobre Mí ─── */
 function SobreMi() {
   return (
-    <section id="sobre-mi" className="py-12 md:py-16 bg-gray-50">
+    <section id="sobre-mi" className="py-8 md:py-10 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="SOBRE MÍ"
@@ -601,7 +601,7 @@ function Servicios() {
   ];
 
   return (
-    <section id="servicios" className="py-12 md:py-16">
+    <section id="servicios" className="py-8 md:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="SERVICIOS"
@@ -643,7 +643,7 @@ function Servicios() {
 /* ─── Identidad Corporativa ─── */
 function IdentidadCorporativa() {
   return (
-    <section id="identidad" className="py-12 md:py-16">
+    <section id="identidad" className="py-8 md:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="IDENTIDAD CORPORATIVA"
@@ -659,7 +659,7 @@ function IdentidadCorporativa() {
 /* ─── Diseño Publicitario ─── */
 function DisenoPublicitario() {
   return (
-    <section id="publicidad" className="py-12 md:py-16 bg-gray-50">
+    <section id="publicidad" className="py-8 md:py-10 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="DISEÑO PUBLICITARIO"
@@ -674,7 +674,7 @@ function DisenoPublicitario() {
 /* ─── Contenido para Redes Sociales ─── */
 function ContenidoRedes() {
   return (
-    <section id="redes" className="py-12 md:py-16">
+    <section id="redes" className="py-8 md:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="CONTENIDO PARA REDES SOCIALES"
@@ -691,7 +691,7 @@ function ContenidoRedes() {
 /* ─── Tarjetas de Presentación ─── */
 function TarjetasPresentacion() {
   return (
-    <section id="tarjetas" className="py-12 md:py-16 bg-gray-50">
+    <section id="tarjetas" className="py-8 md:py-10 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="TARJETAS DE PRESENTACIÓN"
@@ -706,7 +706,7 @@ function TarjetasPresentacion() {
 /* ─── Diseño de Páginas Web ─── */
 function DisenoWeb() {
   return (
-    <section id="web" className="py-12 md:py-16">
+    <section id="web" className="py-8 md:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="DISEÑO DE PÁGINAS WEB"
@@ -772,7 +772,7 @@ function RevistaConstrumedia() {
   };
 
   return (
-    <section id="construmedia" className="py-12 md:py-16 bg-gray-50">
+    <section id="construmedia" className="py-8 md:py-10 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="REVISTA CONSTRUMEDIA"
@@ -869,7 +869,7 @@ function Contacto() {
   ];
 
   return (
-    <section id="contacto" className="py-12 md:py-16" style={{ backgroundColor: NAVY }}>
+    <section id="contacto" className="py-8 md:py-10" style={{ backgroundColor: NAVY }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
         <h2
           className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight"
