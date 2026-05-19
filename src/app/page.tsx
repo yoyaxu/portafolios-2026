@@ -559,10 +559,85 @@ function SobreMi() {
   );
 }
 
+/* ─── Servicios ─── */
+function Servicios() {
+  const servicios = [
+    {
+      icon: BookOpen,
+      title: "Diseño Editorial",
+      desc: "Maquetación y diseño de revistas, catálogos, periódicos y publicaciones impresas o digitales con estándares profesionales.",
+    },
+    {
+      icon: Palette,
+      title: "Identidad Corporativa",
+      desc: "Creación de logos, manuales de marca, papelería y sistemas visuales que comunican la esencia de cada negocio.",
+    },
+    {
+      icon: Megaphone,
+      title: "Diseño Publicitario",
+      desc: "Piezas publicitarias como flyers, banners, anuncios y materiales promocionales que captan la atención y generan resultados.",
+    },
+    {
+      icon: Share2,
+      title: "Contenido para Redes",
+      desc: "Diseño de posts, stories, carruseles y contenido visual estratégico para redes sociales que conecta con tu audiencia.",
+    },
+    {
+      icon: CreditCard,
+      title: "Tarjetas de Presentación",
+      desc: "Diseño de tarjetas profesionales y papelería corporativa que representan tu marca con elegancia y distinción.",
+    },
+    {
+      icon: Globe,
+      title: "Diseño de Páginas Web",
+      desc: "Sitios web profesionales, funcionales y optimizados, desde landings hasta páginas corporativas completas.",
+    },
+  ];
+
+  return (
+    <section id="servicios" className="py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionTitle
+          title="SERVICIOS"
+          subtitle="Soluciones creativas y profesionales para hacer que tu marca destaque."
+        />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-4">
+          {servicios.map((s, i) => (
+            <motion.div
+              key={s.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="group rounded-xl p-6 border border-gray-200 bg-white hover:border-cyan-300 transition-all duration-300 hover:shadow-lg"
+            >
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-colors duration-300"
+                style={{ backgroundColor: `${CYAN}15` }}
+              >
+                <s.icon className="w-6 h-6" style={{ color: CYAN }} />
+              </div>
+              <h3
+                className="font-bold text-lg mb-2"
+                style={{ color: NAVY, fontFamily: "var(--font-oswald)" }}
+              >
+                {s.title}
+              </h3>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                {s.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Identidad Corporativa ─── */
 function IdentidadCorporativa() {
   return (
-    <section id="identidad" className="py-12 md:py-16 bg-gray-50">
+    <section id="identidad" className="py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="IDENTIDAD CORPORATIVA"
@@ -578,7 +653,7 @@ function IdentidadCorporativa() {
 /* ─── Diseño Publicitario ─── */
 function DisenoPublicitario() {
   return (
-    <section id="publicidad" className="py-12 md:py-16">
+    <section id="publicidad" className="py-12 md:py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="DISEÑO PUBLICITARIO"
@@ -593,7 +668,7 @@ function DisenoPublicitario() {
 /* ─── Contenido para Redes Sociales ─── */
 function ContenidoRedes() {
   return (
-    <section id="redes" className="py-12 md:py-16 bg-gray-50">
+    <section id="redes" className="py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="CONTENIDO PARA REDES SOCIALES"
@@ -610,7 +685,7 @@ function ContenidoRedes() {
 /* ─── Tarjetas de Presentación ─── */
 function TarjetasPresentacion() {
   return (
-    <section id="tarjetas" className="py-12 md:py-16">
+    <section id="tarjetas" className="py-12 md:py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="TARJETAS DE PRESENTACIÓN"
@@ -625,7 +700,7 @@ function TarjetasPresentacion() {
 /* ─── Diseño de Páginas Web ─── */
 function DisenoWeb() {
   return (
-    <section id="web" className="py-12 md:py-16 bg-gray-50">
+    <section id="web" className="py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="DISEÑO DE PÁGINAS WEB"
@@ -691,7 +766,7 @@ function RevistaConstrumedia() {
   };
 
   return (
-    <section id="construmedia" className="py-12 md:py-16">
+    <section id="construmedia" className="py-12 md:py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="REVISTA CONSTRUMEDIA"
@@ -858,6 +933,7 @@ export default function PortfolioPage() {
       <Navbar />
       <Hero />
       <SobreMi />
+      <Servicios />
       <RevistaConstrumedia />
       <IdentidadCorporativa />
       <DisenoPublicitario />
