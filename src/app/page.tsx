@@ -350,10 +350,15 @@ function Navbar() {
 
         {/* Mobile toggle */}
         <button
-          className="lg:hidden p-2"
+          className="lg:hidden p-3 rounded-lg active:bg-white/20 transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Menú"
         >
-          {mobileOpen ? <X className="w-6 h-6" style={{ color: NAVY }} /> : <Menu className="w-6 h-6" style={{ color: NAVY }} />}
+          {mobileOpen ? (
+            <X className="w-6 h-6" style={{ color: scrolled ? NAVY : "#fff" }} />
+          ) : (
+            <Menu className="w-6 h-6" style={{ color: scrolled ? NAVY : "#fff" }} />
+          )}
         </button>
       </div>
 
@@ -364,23 +369,24 @@ function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-t shadow-lg overflow-hidden"
+            transition={{ duration: 0.2 }}
+            className="lg:hidden bg-white/95 backdrop-blur-md border-t shadow-xl overflow-hidden fixed top-16 left-0 right-0 z-50"
           >
-            <div className="p-4 flex flex-col gap-1">
+            <div className="p-4 flex flex-col gap-1 max-h-[80vh] overflow-y-auto">
               {SECTIONS.map((s) => (
                 <button
                   key={s.id}
                   onClick={() => scrollTo(s.id)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-50 active:bg-gray-100 transition-colors"
                   style={{ color: NAVY }}
                 >
-                  <s.icon className="w-4 h-4" style={{ color: CYAN }} />
+                  <s.icon className="w-5 h-5" style={{ color: CYAN }} />
                   {s.label}
                 </button>
               ))}
               <button
                 onClick={() => scrollTo("contacto")}
-                className="mt-2 py-2.5 rounded-lg text-sm font-bold text-white transition-colors"
+                className="mt-2 py-3 rounded-lg text-sm font-bold text-white transition-colors"
                 style={{ backgroundColor: CYAN }}
               >
                 Contacto
