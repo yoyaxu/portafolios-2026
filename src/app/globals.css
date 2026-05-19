@@ -1,0 +1,103 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-navy: #282A3A;
+  --color-navy-light: #3A3D52;
+  --color-cyan: #00B8D4;
+  --color-cyan-light: #4DD0E1;
+  --color-cyan-dark: #00838F;
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-oswald);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #282A3A;
+}
+
+@layer base {
+  * {
+    border-color: #e5e7eb;
+    outline-color: oklch(0.708 0 0 / 50%);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #00B8D4;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00838F;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Gallery grid hover */
+.gallery-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 184, 212, 0.15);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #00B8D4, #00838F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section divider */
+.section-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #00B8D4, #00838F);
+  border-radius: 2px;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+/* Hero pattern */
+.hero-pattern {
+  background-image: radial-gradient(circle at 20% 50%, rgba(0, 184, 212, 0.08) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(0, 131, 143, 0.06) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 80%, rgba(0, 184, 212, 0.04) 0%, transparent 50%);
+}
