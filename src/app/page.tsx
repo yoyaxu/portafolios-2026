@@ -177,102 +177,68 @@ function SectionTitle({ title, subtitle }: { title: string; subtitle?: string })
   );
 }
 
-function ImageGrid({
-  images,
-  cols = 3,
-}: {
-  images: string[];
-  cols?: number;
-}) {
-  const [modalSrc, setModalSrc] = useState<string | null>(null);
-
-  const colsClass =
-    cols === 2
-      ? "grid-cols-1 sm:grid-cols-2"
-      : cols === 4
-        ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
-        : "grid-cols-2 sm:grid-cols-2 lg:grid-cols-3";
-
+/* ─── Modal (shared) ─── */
+function ImageModal({ src, onClose }: { src: string; onClose: () => void }) {
   return (
-    <>
-      <div className={`grid ${colsClass} gap-3`}>
-        {images.map((src, i) => (
-          <motion.div
-            key={src}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.4, delay: i * 0.05 }}
-            className="gallery-item cursor-pointer rounded-lg overflow-hidden bg-gray-100 aspect-square relative group"
-            onClick={() => setModalSrc(src)}
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="modal-overlay fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          exit={{ scale: 0.9 }}
+          className="relative max-w-5xl w-full max-h-[90vh]"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute -top-10 right-0 text-white hover:text-cyan-300 transition-colors"
           >
+            <X className="w-8 h-8" />
+          </button>
+          <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-gray-900">
             <Image
               src={src}
-              alt={`Proyecto ${i + 1}`}
+              alt="Vista ampliada"
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="object-contain"
+              sizes="90vw"
             />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-              <ExternalLink className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {modalSrc && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="modal-overlay fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
-            onClick={() => setModalSrc(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="relative max-w-5xl w-full max-h-[90vh]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setModalSrc(null)}
-                className="absolute -top-10 right-0 text-white hover:text-cyan-300 transition-colors"
-              >
-                <X className="w-8 h-8" />
-              </button>
-              <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-gray-900">
-                <Image
-                  src={modalSrc}
-                  alt="Vista ampliada"
-                  fill
-                  className="object-contain"
-                  sizes="90vw"
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
-function SubGallery({
+/* ─── Horizontal Ribbon Gallery (like Construmedia) ─── */
+function RibbonGallery({
   title,
   images,
-  cols,
 }: {
   title: string;
   images: string[];
-  cols?: number;
 }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [modalSrc, setModalSrc] = useState<string | null>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({
+      left: dir === "left" ? -280 : 280,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="mb-6">
+    <div className="mb-4">
       <h3
-        className="text-lg font-semibold mb-3 flex items-center gap-2"
+        className="text-base font-semibold mb-2 flex items-center gap-2"
         style={{ color: NAVY }}
       >
         <span
@@ -281,8 +247,126 @@ function SubGallery({
         />
         {title}
       </h3>
-      <ImageGrid images={images} cols={cols} />
+      <div className="relative">
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide"
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          {images.map((src, i) => (
+            <motion.div
+              key={src}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: i * 0.04 }}
+              className="flex-shrink-0 cursor-pointer group"
+              style={{ scrollSnapAlign: "start" }}
+              onClick={() => setModalSrc(src)}
+            >
+              <div className="w-40 md:w-48 rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300 border border-gray-200 bg-gray-100">
+                <div className="relative aspect-square overflow-hidden">
+                  <Image
+                    src={src}
+                    alt={`${title} ${i + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 40vw, 192px"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                    <ExternalLink className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        {/* Scroll buttons */}
+        <button
+          onClick={() => scroll("left")}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
+        >
+          <ChevronLeft className="w-4 h-4" style={{ color: NAVY }} />
+        </button>
+        <button
+          onClick={() => scroll("right")}
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
+        >
+          <ChevronRight className="w-4 h-4" style={{ color: NAVY }} />
+        </button>
+      </div>
+      {/* Modal */}
+      {modalSrc && <ImageModal src={modalSrc} onClose={() => setModalSrc(null)} />}
     </div>
+  );
+}
+
+/* ─── Standalone ribbon (no sub-title, single row) ─── */
+function SingleRibbon({ images }: { images: string[] }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [modalSrc, setModalSrc] = useState<string | null>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({
+      left: dir === "left" ? -280 : 280,
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <>
+      <div className="relative mt-4">
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide"
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          {images.map((src, i) => (
+            <motion.div
+              key={src}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: i * 0.04 }}
+              className="flex-shrink-0 cursor-pointer group"
+              style={{ scrollSnapAlign: "start" }}
+              onClick={() => setModalSrc(src)}
+            >
+              <div className="w-40 md:w-48 rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300 border border-gray-200 bg-gray-100">
+                <div className="relative aspect-square overflow-hidden">
+                  <Image
+                    src={src}
+                    alt={`Proyecto ${i + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 40vw, 192px"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                    <ExternalLink className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        {/* Scroll buttons */}
+        <button
+          onClick={() => scroll("left")}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
+        >
+          <ChevronLeft className="w-4 h-4" style={{ color: NAVY }} />
+        </button>
+        <button
+          onClick={() => scroll("right")}
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
+        >
+          <ChevronRight className="w-4 h-4" style={{ color: NAVY }} />
+        </button>
+      </div>
+      {/* Modal */}
+      {modalSrc && <ImageModal src={modalSrc} onClose={() => setModalSrc(null)} />}
+    </>
   );
 }
 
@@ -649,8 +733,8 @@ function IdentidadCorporativa() {
           title="IDENTIDAD CORPORATIVA"
           subtitle="Creación de identidades visuales que comunican la esencia de cada marca."
         />
-        <SubGallery title="Aurea Apis" images={IDENTIDAD.aureaApis} cols={4} />
-        <SubGallery title="MKN" images={IDENTIDAD.mkn} cols={4} />
+        <RibbonGallery title="Aurea Apis" images={IDENTIDAD.aureaApis} />
+        <RibbonGallery title="MKN" images={IDENTIDAD.mkn} />
       </div>
     </section>
   );
@@ -665,7 +749,7 @@ function DisenoPublicitario() {
           title="DISEÑO PUBLICITARIO"
           subtitle="Piezas publicitarias que captan la atención y generan resultados."
         />
-        <ImageGrid images={PUBLICIDAD} cols={3} />
+        <SingleRibbon images={PUBLICIDAD} />
       </div>
     </section>
   );
@@ -680,9 +764,9 @@ function ContenidoRedes() {
           title="CONTENIDO PARA REDES SOCIALES"
           subtitle="Estrategia visual para redes sociales que conecta con tu audiencia."
         />
-        <SubGallery title="Barba de Aaron" images={REDES.barbaDeAaron} cols={4} />
-        <SubGallery title="Food Universe" images={REDES.foodUniverse} cols={3} />
-        <SubGallery title="Safva Consulting & Research" images={REDES.safva} cols={3} />
+        <RibbonGallery title="Barba de Aaron" images={REDES.barbaDeAaron} />
+        <RibbonGallery title="Food Universe" images={REDES.foodUniverse} />
+        <RibbonGallery title="Safva Consulting & Research" images={REDES.safva} />
       </div>
     </section>
   );
@@ -697,7 +781,7 @@ function TarjetasPresentacion() {
           title="TARJETAS DE PRESENTACIÓN"
           subtitle="Diseño de tarjetas profesionales que representan tu marca con elegancia."
         />
-        <ImageGrid images={TARJETAS} cols={3} />
+        <SingleRibbon images={TARJETAS} />
       </div>
     </section>
   );
