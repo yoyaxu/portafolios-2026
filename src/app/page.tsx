@@ -281,19 +281,6 @@ function ProjectRibbon({
             </motion.div>
           ))}
         </div>
-        {/* Scroll buttons */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-        >
-          <ChevronLeft className="w-4 h-4" style={{ color: NAVY }} />
-        </button>
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-        >
-          <ChevronRight className="w-4 h-4" style={{ color: NAVY }} />
-        </button>
       </div>
       {modalSrc && <ImageModal src={modalSrc} onClose={() => setModalSrc(null)} />}
     </div>
@@ -349,19 +336,6 @@ function SimpleRibbon({ images }: { images: string[] }) {
             </motion.div>
           ))}
         </div>
-        {/* Scroll buttons */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-        >
-          <ChevronLeft className="w-4 h-4" style={{ color: NAVY }} />
-        </button>
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-        >
-          <ChevronRight className="w-4 h-4" style={{ color: NAVY }} />
-        </button>
       </div>
       {modalSrc && <ImageModal src={modalSrc} onClose={() => setModalSrc(null)} />}
     </div>
@@ -620,7 +594,7 @@ function SobreMi() {
               <h3 className="font-bold mb-3 text-lg" style={{ color: NAVY }}>
                 Software
               </h3>
-              <div className="flex flex-wrap gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {[
                   "Photoshop", "Illustrator", "InDesign", "Premiere",
                   "WordPress", "Wix", "Canva", "Cap Cut", "Filmora",
@@ -628,7 +602,7 @@ function SobreMi() {
                 ].map((sw) => (
                   <span
                     key={sw}
-                    className="px-3 py-1 rounded-full text-xs font-medium"
+                    className="px-3 py-1.5 rounded-full text-xs font-medium text-center"
                     style={{
                       backgroundColor: `${CYAN}15`,
                       color: CYAN_DARK,
@@ -902,19 +876,6 @@ function RevistaConstrumedia() {
               </motion.a>
             ))}
           </div>
-          {/* Scroll buttons */}
-          <button
-            onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-          >
-            <ChevronLeft className="w-4 h-4" style={{ color: NAVY }} />
-          </button>
-          <button
-            onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-          >
-            <ChevronRight className="w-4 h-4" style={{ color: NAVY }} />
-          </button>
         </div>
       </div>
     </section>
