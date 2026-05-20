@@ -216,29 +216,20 @@ function ImageModal({ src, onClose }: { src: string; onClose: () => void }) {
   );
 }
 
-/* ─── Horizontal Ribbon Gallery (like Construmedia) ─── */
-function RibbonGallery({
+/* ─── Grid Gallery with sub-title (4 cols) ─── */
+function ProjectGrid({
   title,
   images,
 }: {
   title: string;
   images: string[];
 }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [modalSrc, setModalSrc] = useState<string | null>(null);
 
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({
-      left: dir === "left" ? -280 : 280,
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <div className="mb-4">
+    <div className="mb-5">
       <h3
-        className="text-base font-semibold mb-2 flex items-center gap-2"
+        className="text-base font-semibold mb-3 flex items-center gap-2"
         style={{ color: NAVY }}
       >
         <span
@@ -247,126 +238,75 @@ function RibbonGallery({
         />
         {title}
       </h3>
-      <div className="relative">
-        <div
-          ref={scrollRef}
-          className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide"
-          style={{ scrollSnapType: "x mandatory" }}
-        >
-          {images.map((src, i) => (
-            <motion.div
-              key={src}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: i * 0.04 }}
-              className="flex-shrink-0 cursor-pointer group"
-              style={{ scrollSnapAlign: "start" }}
-              onClick={() => setModalSrc(src)}
-            >
-              <div className="w-40 md:w-48 rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300 border border-gray-200 bg-gray-100">
-                <div className="relative aspect-square overflow-hidden">
-                  <Image
-                    src={src}
-                    alt={`${title} ${i + 1}`}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 768px) 40vw, 192px"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                    <ExternalLink className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        {images.map((src, i) => (
+          <motion.div
+            key={src}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.35, delay: i * 0.04 }}
+            className="cursor-pointer group"
+            onClick={() => setModalSrc(src)}
+          >
+            <div className="rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300 border border-gray-200 bg-gray-100">
+              <div className="relative aspect-square overflow-hidden">
+                <Image
+                  src={src}
+                  alt={`${title} ${i + 1}`}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                  <ExternalLink className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
-        {/* Scroll buttons */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-        >
-          <ChevronLeft className="w-4 h-4" style={{ color: NAVY }} />
-        </button>
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-        >
-          <ChevronRight className="w-4 h-4" style={{ color: NAVY }} />
-        </button>
+            </div>
+          </motion.div>
+        ))}
       </div>
-      {/* Modal */}
       {modalSrc && <ImageModal src={modalSrc} onClose={() => setModalSrc(null)} />}
     </div>
   );
 }
 
-/* ─── Standalone ribbon (no sub-title, single row) ─── */
-function SingleRibbon({ images }: { images: string[] }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
+/* ─── Grid Gallery without sub-title (4 cols) ─── */
+function SimpleGrid({ images }: { images: string[] }) {
   const [modalSrc, setModalSrc] = useState<string | null>(null);
 
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({
-      left: dir === "left" ? -280 : 280,
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <>
-      <div className="relative mt-4">
-        <div
-          ref={scrollRef}
-          className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide"
-          style={{ scrollSnapType: "x mandatory" }}
-        >
-          {images.map((src, i) => (
-            <motion.div
-              key={src}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: i * 0.04 }}
-              className="flex-shrink-0 cursor-pointer group"
-              style={{ scrollSnapAlign: "start" }}
-              onClick={() => setModalSrc(src)}
-            >
-              <div className="w-40 md:w-48 rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300 border border-gray-200 bg-gray-100">
-                <div className="relative aspect-square overflow-hidden">
-                  <Image
-                    src={src}
-                    alt={`Proyecto ${i + 1}`}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 768px) 40vw, 192px"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                    <ExternalLink className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
+    <div className="mt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        {images.map((src, i) => (
+          <motion.div
+            key={src}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.35, delay: i * 0.04 }}
+            className="cursor-pointer group"
+            onClick={() => setModalSrc(src)}
+          >
+            <div className="rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300 border border-gray-200 bg-gray-100">
+              <div className="relative aspect-square overflow-hidden">
+                <Image
+                  src={src}
+                  alt={`Proyecto ${i + 1}`}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                  <ExternalLink className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
-        {/* Scroll buttons */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-        >
-          <ChevronLeft className="w-4 h-4" style={{ color: NAVY }} />
-        </button>
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 hidden md:flex"
-        >
-          <ChevronRight className="w-4 h-4" style={{ color: NAVY }} />
-        </button>
+            </div>
+          </motion.div>
+        ))}
       </div>
-      {/* Modal */}
       {modalSrc && <ImageModal src={modalSrc} onClose={() => setModalSrc(null)} />}
-    </>
+    </div>
   );
 }
 
@@ -733,8 +673,8 @@ function IdentidadCorporativa() {
           title="IDENTIDAD CORPORATIVA"
           subtitle="Creación de identidades visuales que comunican la esencia de cada marca."
         />
-        <RibbonGallery title="Aurea Apis" images={IDENTIDAD.aureaApis} />
-        <RibbonGallery title="MKN" images={IDENTIDAD.mkn} />
+        <ProjectGrid title="Aurea Apis" images={IDENTIDAD.aureaApis} />
+        <ProjectGrid title="MKN" images={IDENTIDAD.mkn} />
       </div>
     </section>
   );
@@ -749,7 +689,7 @@ function DisenoPublicitario() {
           title="DISEÑO PUBLICITARIO"
           subtitle="Piezas publicitarias que captan la atención y generan resultados."
         />
-        <SingleRibbon images={PUBLICIDAD} />
+        <SimpleGrid images={PUBLICIDAD} />
       </div>
     </section>
   );
@@ -764,9 +704,9 @@ function ContenidoRedes() {
           title="CONTENIDO PARA REDES SOCIALES"
           subtitle="Estrategia visual para redes sociales que conecta con tu audiencia."
         />
-        <RibbonGallery title="Barba de Aaron" images={REDES.barbaDeAaron} />
-        <RibbonGallery title="Food Universe" images={REDES.foodUniverse} />
-        <RibbonGallery title="Safva Consulting & Research" images={REDES.safva} />
+        <ProjectGrid title="Barba de Aaron" images={REDES.barbaDeAaron} />
+        <ProjectGrid title="Food Universe" images={REDES.foodUniverse} />
+        <ProjectGrid title="Safva Consulting & Research" images={REDES.safva} />
       </div>
     </section>
   );
@@ -781,7 +721,7 @@ function TarjetasPresentacion() {
           title="TARJETAS DE PRESENTACIÓN"
           subtitle="Diseño de tarjetas profesionales que representan tu marca con elegancia."
         />
-        <SingleRibbon images={TARJETAS} />
+        <SimpleGrid images={TARJETAS} />
       </div>
     </section>
   );
