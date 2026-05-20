@@ -448,7 +448,7 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
         >
-          Diseñador gráfico con más de 9 años de experiencia. Identidad corporativa, publicidad, contenido digital y diseño web.
+          Identidad corporativa, publicidad, contenido digital y diseño web.
         </motion.p>
 
         <motion.div
@@ -775,8 +775,8 @@ function RevistaConstrumedia() {
     <section id="construmedia" className="py-8 md:py-10 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
-          title="REVISTA CONSTRUMEDIA"
-          subtitle="Maquetación y diseño de revistas."
+          title="DISEÑO EDITORIAL"
+          subtitle="Maquetación y diseño editorial."
         />
         <div className="relative mt-4">
           <div
@@ -846,7 +846,7 @@ function Contacto() {
       icon: Linkedin,
       label: "LinkedIn",
       value: "Jonathan Flores",
-      href: "https://www.linkedin.com/in/jonathan-flores-39640a114/",
+      href: "www.linkedin.com/in/jonathan-flores-rodriguez-11a0aa7a/",
     },
     {
       icon: Mail,
