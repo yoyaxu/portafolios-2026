@@ -846,7 +846,7 @@ function Contacto() {
       icon: Linkedin,
       label: "LinkedIn",
       value: "Jonathan Flores",
-      href: "www.linkedin.com/in/jonathan-flores-rodriguez-11a0aa7a/",
+      href: "https://www.linkedin.com/in/jonathan-flores-rodriguez-11a0aa7a/",
     },
     {
       icon: Mail,
