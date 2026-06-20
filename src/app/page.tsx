@@ -598,7 +598,33 @@ function SobreMi() {
                 {[
                   "Photoshop", "Illustrator", "InDesign", "Premiere",
                   "WordPress", "Wix", "Canva", "Cap Cut", "Filmora",
-                  "Camtasia", "Hootsuite", "Figma",
+                  "Camtasia", "Hootsuite", "Davinci",
+                ].map((sw) => (
+                  <span
+                    key={sw}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium text-center"
+                    style={{
+                      backgroundColor: `${CYAN}15`,
+                      color: CYAN_DARK,
+                      border: `1px solid ${CYAN}30`,
+                    }}
+                  >
+                    {sw}
+                  </span>
+                ))}
+              </div>
+
+               >
+            {/* Software */}
+            <div className="rounded-xl p-5 bg-white border border-gray-200">
+              <h3 className="font-bold mb-3 text-lg" style={{ color: NAVY }}>
+                Software
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {[
+                  "Lovart.ai", "Z.ai", "Chatgpt", "freepick",
+                  "WordPress", "Wix", "Canva", "Cap Cut", "Filmora",
+                  "Camtasia", "Hootsuite", "Davinci",
                 ].map((sw) => (
                   <span
                     key={sw}
