@@ -561,6 +561,21 @@ function Hero() {
 
 /* ─── Sobre Mí ─── */
 function SobreMi() {
+  const software = [
+    "Photoshop",
+    "Illustrator",
+    "InDesign",
+    "Premiere Pro",
+    "WordPress",
+    "Wix",
+    "Canva",
+    "CapCut",
+    "Filmora",
+    "Camtasia",
+    "Hootsuite",
+    "DaVinci Resolve",
+  ];
+
   return (
     <section id="sobre-mi" className="py-8 md:py-10 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -568,7 +583,9 @@ function SobreMi() {
           title="SOBRE MÍ"
           subtitle="Profesional apasionado por los nuevos retos y la creatividad visual."
         />
+
         <div className="grid md:grid-cols-2 gap-8 mt-4">
+          {/* Descripción */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -576,12 +593,23 @@ function SobreMi() {
             transition={{ duration: 0.5 }}
           >
             <p className="text-gray-600 leading-relaxed mb-4">
-              Soy diseñador gráfico y creador de contenido visual, enfocado en desarrollar piezas modernas, funcionales y estratégicas para marcas, medios y negocios. Me apasiona transformar ideas en conceptos visuales que conecten con las personas y aporten valor a cada proyecto.
+              Soy diseñador gráfico y creador de contenido visual, enfocado
+              en desarrollar piezas modernas, funcionales y estratégicas para
+              marcas, medios y negocios. Me apasiona transformar ideas en
+              conceptos visuales que conecten con las personas y aporten valor
+              a cada proyecto.
             </p>
+
             <p className="text-gray-600 leading-relaxed">
-              Mi enfoque combina creatividad, comunicación y diseño digital, trabajando áreas como identidad visual, contenido para redes sociales, diseño editorial, publicidad y desarrollo web. Siempre busco mantenerme en constante evolución, explorando nuevas tendencias, herramientas y formas de comunicar visualmente.
+              Mi enfoque combina creatividad, comunicación y diseño digital,
+              trabajando áreas como identidad visual, contenido para redes
+              sociales, diseño editorial, publicidad y desarrollo web. Siempre
+              busco mantenerme en constante evolución, explorando nuevas
+              tendencias, herramientas y formas de comunicar visualmente.
             </p>
           </motion.div>
+
+          {/* Software */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -589,43 +617,16 @@ function SobreMi() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="space-y-4"
           >
-            {/* Software */}
             <div className="rounded-xl p-5 bg-white border border-gray-200">
-              <h3 className="font-bold mb-3 text-lg" style={{ color: NAVY }}>
+              <h3
+                className="font-bold mb-3 text-lg"
+                style={{ color: NAVY }}
+              >
                 Software
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {[
-                  "Photoshop", "Illustrator", "InDesign", "Premiere",
-                  "WordPress", "Wix", "Canva", "Cap Cut", "Filmora",
-                  "Camtasia", "Hootsuite", "Davinci",
-                ].map((sw) => (
-                  <span
-                    key={sw}
-                    className="px-3 py-1.5 rounded-full text-xs font-medium text-center"
-                    style={{
-                      backgroundColor: `${CYAN}15`,
-                      color: CYAN_DARK,
-                      border: `1px solid ${CYAN}30`,
-                    }}
-                  >
-                    {sw}
-                  </span>
-                ))}
-              </div>
 
-               >
-            {/* Software */}
-            <div className="rounded-xl p-5 bg-white border border-gray-200">
-              <h3 className="font-bold mb-3 text-lg" style={{ color: NAVY }}>
-                Software
-              </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {[
-                  "Lovart.ai", "Z.ai", "Chatgpt", "freepick",
-                  "WordPress", "Wix", "Canva", "Cap Cut", "Filmora",
-                  "Camtasia", "Hootsuite", "Davinci",
-                ].map((sw) => (
+                {software.map((sw) => (
                   <span
                     key={sw}
                     className="px-3 py-1.5 rounded-full text-xs font-medium text-center"
@@ -646,7 +647,6 @@ function SobreMi() {
     </section>
   );
 }
-
 /* ─── Servicios ─── */
 function Servicios() {
   const servicios = [
