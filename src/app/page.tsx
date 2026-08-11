@@ -31,7 +31,7 @@ const CYAN_LIGHT = "#4DD0E1";
 
 /* ─── data ─── */
 const SECTIONS = [
-  { id: "construmedia", label: "Revista Construmedia", icon: BookOpen },
+  { id: "construmedia", label: "Diseño Editorial", icon: BookOpen },
   { id: "identidad", label: "Identidad Corporativa", icon: Palette },
   { id: "publicidad", label: "Diseño Publicitario", icon: Megaphone },
   { id: "redes", label: "Contenido para Redes", icon: Share2 },
